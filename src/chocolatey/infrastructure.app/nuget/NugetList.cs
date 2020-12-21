@@ -38,6 +38,15 @@ namespace chocolatey.infrastructure.app.nuget
             return execute_package_search(configuration, nugetLogger).Count();
         }
 
+        public static IList<IPackage> GetPackages(ChocolateyConfiguration configuration, ILogger nugetLogger, List<string> packageIds) {
+          var packageRepository = NugetCommon.GetRemoteRepository(configuration, nugetLogger, new PackageDownloader());
+          
+          var aggregateRepo = packageRepository as AggregateRepository;
+          var results = packageRepository.FindPackages(packageIds);
+          results = results.Where(p => p.IsLatestVersion);
+          return results.ToList();
+        }
+
         private static IQueryable<IPackage> execute_package_search(ChocolateyConfiguration configuration, ILogger nugetLogger)
         {
             var packageRepository = NugetCommon.GetRemoteRepository(configuration, nugetLogger, new PackageDownloader());

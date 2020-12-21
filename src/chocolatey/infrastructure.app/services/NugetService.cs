@@ -892,6 +892,13 @@ Please see https://chocolatey.org/docs/troubleshooting for more
 
             var originalConfig = config;
 
+            this.Log().Info("get_latest_repository_packages -> BEGIN");
+            var sw = new System.Diagnostics.Stopwatch();
+            sw.Start();
+            var latestRemotePackages = NugetList.GetPackages(config, null, packageNames);
+            sw.Stop();
+            this.Log().Info(String.Format("get_latest_repository_packages -> DONE (took {0} sec)", sw.Elapsed.TotalSeconds));
+
             foreach (var packageName in packageNames)
             {
                 // reset config each time through
@@ -920,7 +927,8 @@ Please see https://chocolatey.org/docs/troubleshooting for more
                 }
 
                 SemanticVersion version =  null;
-                var latestPackage = NugetList.find_package(packageName, null, config, packageManager.SourceRepository);
+                //var latestPackage = NugetList.find_package(packageName, null, config, packageManager.SourceRepository);
+                var latestPackage = latestRemotePackages.Where(x => x.Id.ToLower() == packageName).FirstOrDefault();
 
                 if (latestPackage == null)
                 {
