@@ -56,6 +56,7 @@ namespace chocolatey.tests.infrastructure.information
             }
         }
 
+        [WindowsOnly]
         public class When_populating_process_tree_with_no_cycle : ProcessInformationSpecsBase
         {
             public ProcessTree Result;
@@ -100,6 +101,7 @@ namespace chocolatey.tests.infrastructure.information
             }
         }
 
+        [WindowsOnly]
         public class When_populating_process_tree_with_a_cycle : ProcessInformationSpecsBase
         {
             public ProcessTree Result;
@@ -139,6 +141,7 @@ namespace chocolatey.tests.infrastructure.information
             }
         }
 
+        [WindowsOnly]
         public class When_populating_process_tree_with_access_denied : ProcessInformationSpecsBase
         {
             public ProcessTree Result;
@@ -176,6 +179,7 @@ namespace chocolatey.tests.infrastructure.information
             }
         }
 
+        [WindowsOnly]
         public class When_populating_process_tree_with_win32_exception : ProcessInformationSpecsBase
         {
             public Win32Exception ResultException;
