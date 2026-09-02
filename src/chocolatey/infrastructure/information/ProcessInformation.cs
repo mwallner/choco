@@ -224,7 +224,7 @@ namespace chocolatey.infrastructure.information
             return PopulateProcessTree(tree, currentProcess, ParentProcessHelperStable.GetParentProcess);
         }
 
-        private static ProcessTree PopulateProcessTree(ProcessTree tree, Process currentProcess, Func<Process, Process> getParentProcess)
+        internal static ProcessTree PopulateProcessTree(ProcessTree tree, Process currentProcess, Func<Process, Process> getParentProcess)
         {
             // Track visited PIDs to guard against rare infinite loops
             // (could happen if a lot of processes are created and PIDs are reused)
